@@ -34,5 +34,17 @@ namespace Application.Mappers
                 Risco = produto.Risco
             };
         }
+
+        public static ProdutoRecomendadoResponse ToProdutoRecomendadoResponse(this ProdutoInvestimento produto)
+        {
+            return new ProdutoRecomendadoResponse
+            {
+                Id = produto.Id,
+                Nome = produto.Nome,
+                Tipo = produto.Tipo?.Nome ?? string.Empty,
+                Rentabilidade = produto.Rentabilidade,
+                Risco = produto.Risco
+            };
+        }
     }
 }

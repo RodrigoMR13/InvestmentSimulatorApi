@@ -37,6 +37,17 @@ namespace WebApi.Controllers
             return Ok(result);
         }
 
+        [HttpGet("produtos-recomendados/{perfil}")]
+        public async Task<IActionResult> ObterRecomendados(string perfil)
+        {
+            var result = await _mediator.Send(new ObterProdutosRecomendadosQuery
+            {
+                Perfil = perfil
+            });
+
+            return Ok(result);
+        }
+
         [HttpPost]
         public async Task<IActionResult> Criar([FromBody] CriarProdutoInvestimentoCommand command)
         {

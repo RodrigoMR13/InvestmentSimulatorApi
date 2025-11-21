@@ -23,6 +23,15 @@ namespace Infrastructure.SqlServer.Repositories
                 .ToListAsync();
         }
 
+        public async Task<IEnumerable<ProdutoInvestimento>> ListarPorRiscoAsync(string[] riscos)
+        {
+            return await _context.ProdutosInvestimentos
+                .AsNoTracking()
+                .Include(p => p.Tipo)
+                .Where(p => riscos.Contains(p.Risco))
+                .ToListAsync();
+        }
+
         public async Task<IEnumerable<ProdutoInvestimento>> ListarTodosAsync()
         {
             return await _context.ProdutosInvestimentos

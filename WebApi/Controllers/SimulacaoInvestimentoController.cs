@@ -37,5 +37,12 @@ namespace WebApi.Controllers
             var result = await _mediator.Send(query);
             return Ok(result);
         }
+
+        [HttpGet("{clienteId:long}")]
+        public async Task<IActionResult> GetHistoricoInvestimentos(long clienteId)
+        {
+            var result = await _mediator.Send(new ObterInvestimentosClienteQuery() { ClienteId = clienteId});
+            return Ok(result);
+        }
     }
 }

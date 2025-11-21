@@ -20,6 +20,7 @@ namespace Infrastructure.SqlServer.Repositories
                 .AsNoTracking()
                 .Include(s => s.Cliente)
                 .Include(s => s.Produto)
+                    .ThenInclude(p => p.Tipo)
                 .FirstOrDefaultAsync(s => s.Id == id);
         }
 
@@ -29,6 +30,7 @@ namespace Infrastructure.SqlServer.Repositories
                 .AsNoTracking()
                 .Include(s => s.Cliente)
                 .Include(s => s.Produto)
+                    .ThenInclude(p => p.Tipo)
                 .ToListAsync();
         }
 
@@ -38,6 +40,7 @@ namespace Infrastructure.SqlServer.Repositories
                 .AsNoTracking()
                 .Include(s => s.Cliente)
                 .Include(s => s.Produto)
+                    .ThenInclude(p => p.Tipo)
                 .Where(s => s.ClienteId == clienteId)
                 .ToListAsync();
         }
@@ -49,6 +52,7 @@ namespace Infrastructure.SqlServer.Repositories
                 .AsNoTracking()
                 .Include(s => s.Cliente)
                 .Include(s => s.Produto)
+                    .ThenInclude(p => p.Tipo)
                 .Where(s => s.DataSimulacao >= inicioUtc &&
                             s.DataSimulacao < fimUtc)
                 .ToListAsync();
