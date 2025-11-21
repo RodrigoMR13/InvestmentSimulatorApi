@@ -1,0 +1,37 @@
+# Build / Visual Studio
+bin/
+obj/
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Rider
+.idea/
+
+# Logs
+*.log
+
+# NuGet
+*.nupkg
+packages/
+
+# ASP.NET / IIS
+Properties/PublishProfiles/
+
+# User secrets
+**/secrets.json
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Docker
+docker-compose.override.yml
+
+# VSCode
+.vscode/
+
+# Other
+.env
