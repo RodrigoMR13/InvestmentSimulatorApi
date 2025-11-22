@@ -14,5 +14,4 @@ namespace Application.Commands
         public decimal ValorMaximoInvestimento { get; set; }
         public string Risco { get; set; }
     }
-
 }

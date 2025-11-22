@@ -7,5 +7,4 @@ namespace Application.Commands
     {
         public string Nome { get; set; }
     }
-
 }

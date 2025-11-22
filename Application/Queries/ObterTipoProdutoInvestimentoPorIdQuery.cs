@@ -7,5 +7,4 @@ namespace Application.Queries
     {
         public long Id { get; set; }
     }
-
 }
