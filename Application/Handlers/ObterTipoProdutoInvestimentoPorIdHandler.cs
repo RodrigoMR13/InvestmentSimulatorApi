@@ -1,6 +1,8 @@
-﻿using Application.Mappers;
+﻿using Application.Exceptions;
+using Application.Mappers;
 using Application.Queries;
 using Application.Responses;
+using Domain.Entities;
 using Domain.Interfaces.Sql;
 using MediatR;
 
@@ -20,9 +22,8 @@ namespace Application.Handlers
             ObterTipoProdutoInvestimentoPorIdQuery request,
             CancellationToken cancellationToken)
         {
-            var entity = await _repository.ObterPorIdAsync(request.Id);
-            if (entity == null)
-                return null;
+            TipoProdutoInvestimento entity = await _repository.ObterPorIdAsync(request.Id)
+                ?? throw new ObjectNotFoundException(nameof(TipoProdutoInvestimento), request.Id);
 
             return entity.ToTipoProdutoInvestimentoResponse();
         }

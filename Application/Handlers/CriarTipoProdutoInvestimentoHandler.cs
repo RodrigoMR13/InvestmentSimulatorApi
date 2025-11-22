@@ -21,7 +21,7 @@ namespace Application.Handlers
             CriarTipoProdutoInvestimentoCommand request,
             CancellationToken cancellationToken)
         {
-            var entity = new TipoProdutoInvestimento
+            TipoProdutoInvestimento entity = new()
             {
                 Nome = request.Nome
             };

@@ -16,7 +16,7 @@ namespace Application.Handlers
             CriarClienteCommand request,
             CancellationToken cancellationToken)
         {
-            var cliente = new Cliente
+            Cliente cliente = new()
             {
                 Nome = request.Nome,
                 Email = request.Email,

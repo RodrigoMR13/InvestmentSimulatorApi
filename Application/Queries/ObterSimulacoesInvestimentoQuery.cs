@@ -3,7 +3,7 @@ using MediatR;
 
 namespace Application.Queries
 {
-    public class ObterSimulacoesInvestimentoQuery : IRequest<ObterSimulacoesInvestimentoResponse>
+    public class ObterSimulacoesInvestimentoQuery : IRequest<ObterSimulacoesInvestimentoResponse?>
     {
     }
 }

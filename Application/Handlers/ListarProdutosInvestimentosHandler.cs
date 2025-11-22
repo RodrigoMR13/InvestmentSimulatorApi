@@ -16,9 +16,13 @@ namespace Application.Handlers
             _repository = repository;
         }
 
-        public async Task<IEnumerable<ProdutoInvestimentoResponse>> Handle(ListarProdutosInvestimentosQuery request, CancellationToken cancellationToken)
+        public async Task<IEnumerable<ProdutoInvestimentoResponse>> Handle(
+            ListarProdutosInvestimentosQuery request,
+            CancellationToken cancellationToken)
         {
             var list = await _repository.ListarTodosAsync();
+            if (!list.Any())
+                return [];
 
             return list.Select(entity => entity.ToProdutoInvestimentoResponse());
         }

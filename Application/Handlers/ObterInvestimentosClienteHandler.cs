@@ -25,6 +25,9 @@ namespace Application.Handlers
             IEnumerable<SimulacaoInvestimento> investimentos = await _simulacaoInvestimentoRepository
                 .ListarPorClienteAsync(request.ClienteId);
 
+            if (!investimentos.Any())
+                return [];
+
             return investimentos.Select(investimento => investimento.ToInvestimentoResult());
         }
     }

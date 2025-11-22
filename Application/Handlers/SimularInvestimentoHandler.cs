@@ -8,6 +8,7 @@ using Domain.Entities;
 using Domain.Interfaces.Services;
 using Domain.Interfaces.Sql;
 using MediatR;
+using Application.Exceptions;
 
 namespace Application.Handlers
 {
@@ -41,11 +42,11 @@ namespace Application.Handlers
                 .ListarPorTipoAsync(request.TipoProduto);
 
             if (!produtos.Any())
-                throw new Exception("Erro 404");
+                throw new Exception("Não há produtos de investimento na base de dados para simular");
 
-            ProdutoInvestimento? produtoApropriado = _produtoInvestimentoSelector
-                .SelecionarProdutoApropriado(produtos, request.Valor, request.PrazoMeses) 
-                ?? throw new Exception();
+            ProdutoInvestimento produtoApropriado = _produtoInvestimentoSelector
+                .SelecionarProdutoApropriado(produtos, request.Valor, request.PrazoMeses)
+                ?? throw new Exception("Não existe Produto de Investimento apropriado para esses parâmetros");
 
             ProdutoValidadoResult produtoValidado = produtoApropriado.ToProdutoValidadoResult();
 

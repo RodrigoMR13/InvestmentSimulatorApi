@@ -1,6 +1,8 @@
 ﻿using Application.Commands;
+using Application.Exceptions;
 using Application.Mappers;
 using Application.Responses;
+using Domain.Entities;
 using Domain.Interfaces.Sql;
 using MediatR;
 
@@ -15,9 +17,8 @@ namespace Application.Handlers
             AtualizarClienteCommand request,
             CancellationToken cancellationToken)
         {
-            var existente = await _repository.ObterPorIdAsync(request.Id);
-            if (existente == null)
-                return null;
+            Cliente existente = await _repository.ObterPorIdAsync(request.Id) 
+                ?? throw new ObjectNotFoundException(nameof(Cliente), request.Id);
 
             existente.Nome = request.Nome;
             existente.Email = request.Email;

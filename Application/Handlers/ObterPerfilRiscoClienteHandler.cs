@@ -26,6 +26,17 @@ namespace Application.Handlers
             IEnumerable<SimulacaoInvestimento> historicoInvestimentos = await _simulacaoInvestimentoRepository
                 .ListarPorClienteAsync(request.ClienteId);
 
+            if (!historicoInvestimentos.Any())
+            {
+                return new PerfilRiscoClienteResponse
+                {
+                    ClienteId = request.ClienteId,
+                    Perfil = "Indefinido",
+                    Pontuacao = 0,
+                    Descricao = "O cliente não possui histórico de investimentos para definição de perfil de risco."
+                };
+            }
+
             short pontuacao = RiskCalculatorService.CalcularPontuacao(historicoInvestimentos);
             string perfil = RiskCalculatorService.DefinirPerfil(pontuacao);
             string descricao = RiskCalculatorService.DescricaoPerfil(perfil);

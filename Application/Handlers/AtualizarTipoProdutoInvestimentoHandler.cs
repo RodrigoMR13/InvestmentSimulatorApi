@@ -1,4 +1,5 @@
 ﻿using Application.Commands;
+using Application.Exceptions;
 using Application.Mappers;
 using Application.Responses;
 using Domain.Entities;
@@ -21,9 +22,8 @@ namespace Application.Handlers
             AtualizarTipoProdutoInvestimentoCommand request,
             CancellationToken cancellationToken)
         {
-            var entity = await _repository.ObterPorIdAsync(request.Id);
-            if (entity == null)
-                return null;
+            TipoProdutoInvestimento entity = await _repository.ObterPorIdAsync(request.Id)
+                ?? throw new ObjectNotFoundException(nameof(TipoProdutoInvestimento), request.Id);
 
             entity.Nome = request.Nome;
 

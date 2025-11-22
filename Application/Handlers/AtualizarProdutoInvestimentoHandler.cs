@@ -1,4 +1,5 @@
 ﻿using Application.Commands;
+using Application.Exceptions;
 using Application.Mappers;
 using Application.Responses;
 using Domain.Entities;
@@ -17,11 +18,12 @@ namespace Application.Handlers
             _repository = repository;
         }
 
-        public async Task<ProdutoInvestimentoResponse?> Handle(AtualizarProdutoInvestimentoCommand request, CancellationToken cancellationToken)
+        public async Task<ProdutoInvestimentoResponse?> Handle(
+            AtualizarProdutoInvestimentoCommand request,
+            CancellationToken cancellationToken)
         {
-            var entity = await _repository.ObterPorIdAsync(request.Id);
-            if (entity == null)
-                return null;
+            ProdutoInvestimento entity = await _repository.ObterPorIdAsync(request.Id)
+                ?? throw new ObjectNotFoundException(nameof(ProdutoInvestimento), request.Id);
 
             entity.Nome = request.Nome;
             entity.Rentabilidade = request.Rentabilidade;

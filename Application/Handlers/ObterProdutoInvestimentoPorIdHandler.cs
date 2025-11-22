@@ -1,6 +1,8 @@
-﻿using Application.Mappers;
+﻿using Application.Exceptions;
+using Application.Mappers;
 using Application.Queries;
 using Application.Responses;
+using Domain.Entities;
 using Domain.Interfaces.Sql;
 using MediatR;
 
@@ -18,9 +20,8 @@ namespace Application.Handlers
 
         public async Task<ProdutoInvestimentoResponse?> Handle(ObterProdutoInvestimentoPorIdQuery request, CancellationToken cancellationToken)
         {
-            var entity = await _repository.ObterPorIdAsync(request.Id);
-            if (entity == null)
-                return null;
+            ProdutoInvestimento entity = await _repository.ObterPorIdAsync(request.Id)
+                ?? throw new ObjectNotFoundException(nameof(ProdutoInvestimento), request.Id);
 
             return entity.ToProdutoInvestimentoResponse();
         }

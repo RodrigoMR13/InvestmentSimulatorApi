@@ -1,4 +1,5 @@
-﻿using Application.Mappers;
+﻿using Application.Exceptions;
+using Application.Mappers;
 using Application.Queries;
 using Application.Responses;
 using Domain.Entities;
@@ -12,9 +13,13 @@ namespace Application.Handlers
         private readonly IClienteRepository _repository;
         public ListarClientesHandler(IClienteRepository repository) => _repository = repository;
 
-        public async Task<IEnumerable<ClienteResponse>> Handle(ListarClientesQuery request, CancellationToken ct)
+        public async Task<IEnumerable<ClienteResponse>> Handle(
+            ListarClientesQuery request,
+            CancellationToken cancellationToken)
         {
             IEnumerable<Cliente> list = await _repository.ListarTodosAsync();
+            if (!list.Any())
+                return [];
 
             return list.Select(entity => entity.ToClienteResponse());
         }

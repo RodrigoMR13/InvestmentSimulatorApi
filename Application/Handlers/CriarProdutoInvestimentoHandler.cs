@@ -17,7 +17,9 @@ namespace Application.Handlers
             _repository = repository;
         }
 
-        public async Task<ProdutoInvestimentoResponse> Handle(CriarProdutoInvestimentoCommand request, CancellationToken cancellationToken)
+        public async Task<ProdutoInvestimentoResponse> Handle(
+            CriarProdutoInvestimentoCommand request,
+            CancellationToken cancellationToken)
         {
             ProdutoInvestimento entity = new()
             {

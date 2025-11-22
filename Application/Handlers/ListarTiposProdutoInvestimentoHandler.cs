@@ -21,6 +21,8 @@ namespace Application.Handlers
             CancellationToken cancellationToken)
         {
             var list = await _repository.ListarTodosAsync();
+            if (!list.Any())
+                return [];
 
             return list.Select(entity => entity.ToTipoProdutoInvestimentoResponse());
         }

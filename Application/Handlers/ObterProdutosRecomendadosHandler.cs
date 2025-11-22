@@ -34,6 +34,9 @@ namespace Application.Handlers
             IEnumerable<ProdutoInvestimento> produtos = await _produtoInvestimentoRepository
                 .ListarPorRiscoAsync(riscosPermitidos);
 
+            if (!produtos.Any())
+                return [];
+
             return produtos.Select(p => p.ToProdutoRecomendadoResponse());
         }
     }

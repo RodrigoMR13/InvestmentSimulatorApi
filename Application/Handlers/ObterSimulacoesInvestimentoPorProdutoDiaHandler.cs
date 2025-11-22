@@ -36,6 +36,9 @@ namespace Application.Handlers
             IEnumerable<SimulacaoInvestimento> simulacoes = await _simulacaoInvestimentoRepository
                     .ListarPorDiaAsync(inicioUtc, fimUtc);
 
+            if (!simulacoes.Any())
+                return [];
+
             var simulacoesPorId = simulacoes.GroupBy(s => s.ProdutoId).ToList();
 
             var resultado = new List<ObterSimulacaoInvestimentoPorProdutoDiaResponse>();
